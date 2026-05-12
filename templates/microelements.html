@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="page-title">Микроэлементы</h2>
+
+<a href="/add/Microelements/?next=/microelements/"
+   class="btn btn-primary mb-3">
+
+    Добавить микроэлемент
+
+</a>
+
+{% include "includes/sort_form.html" %}
+
+<table class="table table-hover table-striped">
+
+<thead>
+<tr>
+    <th>Название</th>
+    <th>Действия</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for microelement in microelements %}
+
+<tr
+onclick="window.location='/edit/Microelements/{{ microelement.microelement_id }}/?next=/microelements/'"
+style="cursor:pointer;"
+>
+
+<td>{{ microelement.microelement_name }}</td>
+
+<td>
+
+<a
+href="/edit/Microelements/{{ microelement.microelement_id }}/?next=/microelements/"
+class="btn btn-sm btn-primary"
+onclick="event.stopPropagation();"
+>
+Редактировать
+</a>
+
+<a
+href="/delete/Microelements/{{ microelement.microelement_id }}/"
+class="btn btn-sm btn-danger"
+onclick="event.stopPropagation(); return confirm('Удалить запись?');"
+>
+Удалить
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% endblock %}

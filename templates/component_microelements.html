@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="page-title">
+Состав микроэлементов в компонентах
+</h2>
+
+<a href="/add/ComponentMicroelements/?next=/component_microelements/"
+   class="btn btn-primary mb-3">
+
+Добавить запись
+
+</a>
+
+{% include "includes/sort_form.html" %}
+
+<table class="table table-hover table-striped">
+
+<thead>
+<tr>
+    <th>Компонент</th>
+    <th>Микроэлемент</th>
+    <th>Количество (на 100 г)</th>
+    <th>Действия</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for item in component_microelements %}
+
+<tr onclick="window.location='/edit/ComponentMicroelements/{{ item.id }}/?next=/component_microelements/'"
+    style="cursor:pointer;">
+
+<td>
+{{ item.component.component_name }}
+</td>
+
+<td>
+{{ item.microelement.microelement_name }}
+</td>
+
+<td>
+{{ item.amount_per_100g }}
+</td>
+
+    <td>
+
+<a
+href="/edit/ComponentMicroelements/{{ item.id }}/?next=/component_microelements/"
+class="btn btn-sm btn-primary"
+onclick="event.stopPropagation();"
+>
+Редактировать
+</a>
+
+<a
+href="/delete/ComponentMicroelements/{{ item.id }}/"
+class="btn btn-sm btn-danger"
+onclick="event.stopPropagation(); return confirm('Удалить запись?');"
+>
+Удалить
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% endblock %}

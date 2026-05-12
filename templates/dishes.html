@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="page-title">Список блюд</h2>
+
+<a href="/add/Dishes/?next=/dishes/"
+class="btn btn-primary mb-3">
+
+Добавить блюдо
+
+</a>
+
+<a href="/add_dish_full/"
+class="btn btn-full-add mb-3">
+
+Добавить блюдо с компонентами
+
+</a>
+
+{% include "includes/sort_form.html" %}
+
+
+<table class="table table-hover table-striped">
+
+<thead>
+
+<tr>
+
+<th>Название блюда</th>
+<th>Цена (руб)</th>
+<th>Калорийность (ккал)</th>
+<th>Себестоимость (руб)</th>
+<th>Тип блюда</th>
+<th>Действия</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+{% for dish in dishes %}
+
+<tr
+onclick="window.location='/edit/Dishes/{{ dish.dish_id }}/?next=/dishes/'"
+style="cursor:pointer;"
+>
+
+<td>{{ dish.dish_name }}</td>
+
+<td>{{ dish.price|floatformat:2 }}</td>
+
+<td>{{ dish.calories_total|floatformat:2 }}</td>
+
+<td>{{ dish.cost_price|floatformat:2 }}</td>
+
+<td>{{ dish.type }}</td>
+
+<td>
+
+<a
+href="/edit/Dishes/{{ dish.dish_id }}/?next=/dishes/"
+class="btn btn-sm btn-primary"
+onclick="event.stopPropagation();"
+>
+Редактировать
+</a>
+
+<a
+href="/delete/Dishes/{{ dish.dish_id }}/"
+class="btn btn-sm btn-danger"
+onclick="event.stopPropagation(); return confirm('Удалить запись?');"
+>
+Удалить
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% endblock %}

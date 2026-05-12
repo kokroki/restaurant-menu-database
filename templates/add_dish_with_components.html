@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="page-title">
+Добавить блюдо вместе с компонентами
+</h2>
+
+<form method="post">
+
+{% csrf_token %}
+
+<h4>Блюдо</h4>
+
+{{ form.as_p }}
+
+<h4>Компоненты блюда</h4>
+
+{{ formset.management_form }}
+
+<table class="table">
+
+<tr>
+<th>Компонент</th>
+<th>Количество (г)</th>
+<th>Удалить</th>
+</tr>
+
+{% for f in formset %}
+
+<tr>
+
+<td>
+
+{{ f.component }}
+
+<a
+href="/add/Components/?next=/add_dish_full/"
+class="btn btn-sm btn-secondary mt-1"
+target="_blank"
+>
+
+Добавить компонент
+
+</a>
+
+</td>
+
+<td>{{ f.amount_grams }}</td>
+
+<td>{{ f.DELETE }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<button class="btn btn-primary">
+Сохранить
+</button>
+
+</form>
+
+{% endblock %}

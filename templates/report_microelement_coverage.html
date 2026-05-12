@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="page-title">
+Покрытие нормы микроэлементов
+</h2>
+
+
+<form method="get" class="mb-3 d-flex gap-2 flex-wrap">
+
+
+<select
+name="microelement_id"
+class="form-select"
+style="max-width:220px;"
+>
+
+<option value="">
+Выберите микроэлемент
+</option>
+
+{% for m in filter_queryset %}
+
+<option
+value="{{ m.microelement_id }}"
+{% if request.GET.microelement_id == m.microelement_id|stringformat:"s" %}
+selected
+{% endif %}
+>
+
+{{ m.microelement_name }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+
+
+<select
+name="sort"
+class="form-select"
+style="max-width:220px;"
+>
+
+<option value="">
+Сортировка
+</option>
+
+
+<option value="coverage_percent">
+Покрытие ↑
+</option>
+
+
+<option value="-coverage_percent">
+Покрытие ↓
+</option>
+
+
+<option value="dish_name">
+Название ↑
+</option>
+
+
+<option value="-dish_name">
+Название ↓
+</option>
+
+
+</select>
+
+
+<button class="btn btn-primary">
+
+Сформировать отчёт
+
+</button>
+
+
+<a href="/reports/microelement-coverage/"
+class="btn btn-secondary">
+
+Сбросить
+
+</a>
+
+
+</form>
+
+
+
+{% if report %}
+
+<table class="table table-hover table-striped">
+
+<thead>
+
+<tr>
+
+<th>Блюдо</th>
+
+<th>Микроэлемент</th>
+
+<th>% покрытия нормы</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+{% for row in report %}
+
+<tr>
+
+<td>{{ row.dish_name }}</td>
+
+<td>{{ row.microelement_name }}</td>
+
+<td>{{ row.coverage_percent|floatformat:2 }}</td>
+
+</tr>
+
+{% endfor %}
+
+
+<tr>
+
+<td colspan="2">
+<b>Среднее покрытие</b>
+</td>
+
+<td>
+<b>{{ avg_coverage|floatformat:2 }}%</b>
+</td>
+
+</tr>
+
+
+</tbody>
+
+</table>
+
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="page-title">Типы блюд</h2>
+
+<a href="/add/DishTypes/?next=/dish_types/"
+class="btn btn-primary mb-3">
+
+Добавить тип блюда
+
+</a>
+
+{% include "includes/sort_form.html" %}
+
+<table class="table table-hover table-striped">
+
+<thead>
+
+<tr>
+
+<th>Название типа блюда</th>
+
+<th>Действия</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for type in dish_types %}
+
+<tr
+onclick="window.location='/edit/DishTypes/{{ type.type_id }}/?next=/dish_types/'"
+style="cursor:pointer;"
+>
+
+<td>{{ type.type_name }}</td>
+
+<td>
+
+<a
+href="/edit/DishTypes/{{ type.type_id }}/?next=/dish_types/"
+class="btn btn-sm btn-primary"
+onclick="event.stopPropagation();"
+>
+
+Редактировать
+
+</a>
+
+<a
+href="/delete/DishTypes/{{ type.type_id }}/"
+class="btn btn-sm btn-danger"
+onclick="event.stopPropagation(); return confirm('Удалить запись?');"
+>
+
+Удалить
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% endblock %}

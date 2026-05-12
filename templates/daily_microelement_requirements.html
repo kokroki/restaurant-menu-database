@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="page-title">Суточные нормы микроэлементов</h2>
+
+
+<a href="/add/DailyMicroelementRequirements/?next=/daily_microelement_requirements/"
+   class="btn btn-primary mb-3">
+
+    Добавить норму
+
+</a>
+
+{% include "includes/sort_form.html" %}
+
+<table class="table table-hover table-striped">
+
+<thead>
+<tr>
+    <th>Микроэлемент</th>
+    <th>Суточная норма (мг)</th>
+    <th>Действия</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for item in requirements %}
+
+<tr onclick=onclick="window.location='/edit/DailyMicroelementRequirements/{{ item.microelement_id }}/?next=/daily_microelement_requirements/'"
+    style="cursor:pointer;">
+
+    <td>{{ item.microelement.microelement_name }}</td>
+    <td>{{ item.daily_amount_mg }}</td>
+
+<td>
+
+<a
+href="/edit/DailyMicroelementRequirements/{{ item.microelement_id }}/?next=/daily_microelement_requirements/"
+class="btn btn-sm btn-primary"
+onclick="event.stopPropagation();"
+>
+Редактировать
+</a>
+
+<a
+href="/delete/DailyMicroelementRequirements/{{ item.microelement_id }}/"
+class="btn btn-sm btn-danger"
+onclick="event.stopPropagation(); return confirm('Удалить запись?');"
+>
+Удалить
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% endblock %}

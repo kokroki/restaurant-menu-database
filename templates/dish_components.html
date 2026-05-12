@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="page-title">Состав блюд</h2>
+
+<a href="/add/DishComponents/?next=/dish_components/"
+class="btn btn-primary mb-3">
+
+Добавить компонент в блюдо
+
+</a>
+
+{% include "includes/sort_form.html" %}
+
+<table class="table table-hover table-striped">
+
+<thead>
+
+<tr>
+
+<th>Блюдо</th>
+<th>Компонент</th>
+<th>Количество (г)</th>
+<th>Действия</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for item in dish_components %}
+
+<tr
+onclick="window.location='/edit/DishComponents/{{ item.id }}/?next=/dish_components/'"
+style="cursor:pointer;"
+>
+
+<td>{{ item.dish }}</td>
+
+<td>{{ item.component }}</td>
+
+<td>{{ item.amount_grams|floatformat:2 }}</td>
+
+<td>
+
+<a
+href="/edit/DishComponents/{{ item.id }}/?next=/dish_components/"
+class="btn btn-sm btn-primary"
+onclick="event.stopPropagation();"
+>
+Редактировать
+</a>
+
+<a
+href="/delete/DishComponents/{{ item.id }}/"
+class="btn btn-sm btn-danger"
+onclick="event.stopPropagation(); return confirm('Удалить запись?');"
+>
+Удалить
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% endblock %}
